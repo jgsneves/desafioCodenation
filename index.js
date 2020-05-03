@@ -4,6 +4,7 @@ const postUrl = 'https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?
 let fs = require('fs');
 let fetch = require('node-fetch');
 let sha1 = require('js-sha1');
+let FormData = require('form-data');
 
 //requisição e salvando no answer.json
 async function request() {
@@ -45,6 +46,18 @@ async function main() {
 
     //Salvando answer.json
     save(message);
+
+    //Instanciando arquivo multipart/form-data
+    const form = new FormData();
+    form.append('answer', fs.createReadStream('answer.json'));
+    console.log('formulario: ', form);
+
+    //POST
+    const response = await fetch(postUrl, {
+        method: 'POST',
+        body: form
+    });
+    console.log('postStatus:', response.status);
 }
 
 //Salvando o retorno no answer.json
@@ -52,4 +65,5 @@ function save(message) {
    fs.writeFile('answer.json', JSON.stringify(message), res => {console.log('salvo no json')})
 }
 
+//chamada da função principal
 main();

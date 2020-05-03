@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "form-data": "^3.0.0",
+    "formdata-node": "^2.1.1",
     "fs": "0.0.1-security",
     "js-sha1": "^0.6.0",
     "node-fetch": "^2.6.0"
